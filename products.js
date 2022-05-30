@@ -57,6 +57,7 @@ function addProduct() {
 function productEdit(productId){
     for (let product of products){
         if (product.id==productId){
+            var index=productId;
             document.querySelector("#name").value=product.name;
             document.querySelector("#img").value=product.img;
             document.querySelector("#price").value=product.price;
@@ -65,26 +66,15 @@ function productEdit(productId){
         }
     } 
 }
-function submit(productId) {
+function submit(index) {
     let productName = document.querySelector("#name").value;
     let productImg = document.querySelector("#img").value;
     let productPrice = Number(document.querySelector("#price").value);
     let newProduct = new product( productName, productImg, productPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }))
-    for (let product of products){
-        if (product.id==productId){
-            products.splice(productId,1,newProduct)
-        
-        }}
+    products.splice(index,1,newProduct);
     renderProducts()
     clearForm();
 } 
-// function submit(){
-//     let productName = document.querySelector("#name").value;
-//     let productImg = document.querySelector("#img").value;
-//     let productPrice = Number(document.querySelector("#price").value);
-//     let newProduct = new product( productName, productImg, productPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }))
-
-// }
 function clearForm(){
     document.querySelector("#name").value = "";
     document.querySelector("#img").value = "";
@@ -116,10 +106,10 @@ function changeImg(){
 }
 setInterval(changeImg,4000);
 
-function searchProduct(){
-    let search=document.getElementById("search").value;
-    let productSearch=products.filter(value =>{
-        return value.name.toUpperCase().includes(search.toUpperCase());
+function search() {
+    let keywork = document.querySelector("#searchitem").value;
+    let result = products.filter(function (product) {
+        return product.name.toLowerCase().indexOf(keywork.toLowerCase()) != -1;
     })
-
+    renderProducts(result);
 }
