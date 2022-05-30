@@ -8,31 +8,39 @@ class product {
         this.action = action;
     }
 }
+class Helper {
+    static formatCurrency(number) {
+        return number.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        });
+    }
+}
 let products = [
-    new product(1, "Áo dài thêu hoạ tiết", "img/hoatiet.jpg", 850000),
-    new product(2, "Áo dài truyền thống", "img/xua.jpeg", 1500000),
-    new product(3, "Áo dài cách tân", "img/cachtan.jpeg", 450000),
-    new product(4, "Áo dài cưới", "img/cuoi.png", 2100000),
-    new product(5, "Áo dài trẻ em", "img/children.jpeg", 200000),
+    new product(1, "Ao dai hoa tiet", "img/hoatiet.jpg", 850000),
+    new product(2, "Ao dai truyen thong", "img/xua.jpeg", 1500000),
+    new product(3, "Ao dai cach tan", "img/cachtan.jpeg", 450000),
+    new product(4, "Ao dai cuoi", "img/cuoi.png", 2100000),
+    new product(5, "Ao dai tre em", "img/children.jpeg", 200000),
 ]
-function getId(){
-    max=0;
-    for (let product of products){
-        if (product.id>max){
-            max=product.id;
+function getId() {
+    max = 0;
+    for (let product of products) {
+        if (product.id > max) {
+            max = product.id;
         }
-    }   
-    return max;                    
+    }
+    return max;
 }
 
-function renderProducts() {
-    let htmls = products.map(function (product) {
+function renderProduct(data) {
+    let htmls = data.map(function (product) {
         return `
             <tr>
                 <td>SP#${product.id}</td>
                 <td>${product.name}</td>
-                <td> <img src="${product.img}" alt=" " style="width: 70px;"></td>
-                <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                <td> <img src="${product.img}" alt=" " style="width: 70px; height:100px"></td>
+                <td>${Helper.formatCurrency(product.price)}</td>
                 <td>
                     <button class="btn btn-warning" onclick="productEdit(${product.id})">Edit</button>
                     <button class="btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
@@ -42,40 +50,58 @@ function renderProducts() {
     })
     document.querySelector("table>tbody").innerHTML = htmls.join("");
 }
-renderProducts()
+renderProduct(products)
 
 function addProduct() {
-    let productId= getId()+1;
+    let productId = getId() + 1;
     let productName = document.querySelector("#name").value;
     let productImg = document.querySelector("#img").value;
     let productPrice = Number(document.querySelector("#price").value);
-    let newProduct = new product(productId, productName, productImg, productPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }))
+    let newProduct = new product(productId, productName, productImg, productPrice)
     products.push(newProduct)
-    renderProducts()
+    renderProduct(products)
     clearForm();
 }
-function productEdit(productId){
-    for (let product of products){
-        if (product.id==productId){
-            var index=productId;
-            document.querySelector("#name").value=product.name;
-            document.querySelector("#img").value=product.img;
-            document.querySelector("#price").value=product.price;
+function productEdit(productId) {
+   let product=products.find(function(product){
+       return product.id==productId;
+   })
+            document.querySelector("#name").value = product.name;
+            document.querySelector("#img").value = product.img;
+            document.querySelector("#price").value = product.price;
+            document.querySelector("#productId").value = product.id;
             document.getElementById("add").style.display = "none";
             document.getElementById("submit").style.display = "inline-block";
-        }
-    } 
+            document.getElementById("cancel").style.display = "inline-block";
 }
-function submit(index) {
-    let productName = document.querySelector("#name").value;
-    let productImg = document.querySelector("#img").value;
-    let productPrice = Number(document.querySelector("#price").value);
-    let newProduct = new product( productName, productImg, productPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }))
-    products.splice(index,1,newProduct);
-    renderProducts()
-    clearForm();
-} 
-function clearForm(){
+function submitProduct() {
+    let name = document.querySelector("#name").value;
+    let img = document.querySelector("#img").value;
+    let price = Number(document.querySelector("#price").value);
+    let id = Number(document.querySelector("#productId").value);
+    let product = products.find(function (product) {
+      return product.id == id;
+    });
+  console.log(id);
+    product.name = name;
+    product.img = img;
+    product.price = price;
+   
+  
+    // localStorage.setItem(staff_data, JSON.stringify(staffs));
+    renderProduct(products);
+    cancel();
+  }
+function cancel() {
+    document.querySelector("#name").value = "";
+    document.querySelector("#img").value = "";
+    document.querySelector("#price").value = "";
+    document.getElementById("submit").style.display = "none";
+    document.getElementById("cancel").style.display = "none";
+    document.getElementById("add").style.display = "inline-block";
+}
+
+function clearForm() {
     document.querySelector("#name").value = "";
     document.querySelector("#img").value = "";
     document.querySelector("#price").value = "";
@@ -89,27 +115,37 @@ function deleteProduct(productId) {
             return product.id == productId;
         });
         products.splice(posistion, 1);
-        renderProducts();
+        renderProduct(products);
     }
 }
-var index=0;
-var a=document.querySelector(".image");
-function changeImg(){ 
-    let imgs=["img/aodaidan.jpeg","img/aodaisen.jpeg","img/aodaixanh.jpeg","img/aodaivang.jpeg","img/aodaido.jpeg"];
-        a.style=`background-image: url("${imgs[index]}")`;
-        a.style.transition='.1,5s'
-        index++;
-        if (index==4){
-            index=0;
-        }
+var index = 0;
+var a = document.querySelector(".image");
+function changeImg() {
+    let imgs = ["img/aodaidan.jpeg", "img/aodaisen.jpeg", "img/aodaixanh.jpeg", "img/aodaivang.jpeg", "img/aodaido.jpeg"];
+    a.style = `background-image: url("${imgs[index]}")`;
+    a.style.transition = '.7s'
+    index++;
+    if (index == 4) {
+        index = 0;
+    }
 
 }
-setInterval(changeImg,4000);
+setInterval(changeImg, 5000);
 
-function search() {
-    let keywork = document.querySelector("#searchitem").value;
+function search(searchInput) {
     let result = products.filter(function (product) {
-        return product.name.toLowerCase().indexOf(keywork.toLowerCase()) != -1;
-    })
-    renderProducts(result);
+        return product.name.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1;
+    });
+    renderProduct(result);
 }
+// function signin(){
+//     let user=document.querySelector("#username").value;
+//     let pw=document.querySelector("#password").value;
+//     if(user=="Admin"&&pw=="Admin"){
+//         alert("Hello Master")
+//         document.querySelector(".left-side").style.display="block"
+//         document.querySelector(".text-center-button").style.display="block"
+//     }else{
+//         alert("Wrong user name or password")
+//     }
+// }
