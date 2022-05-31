@@ -11,6 +11,7 @@
     display: flex;
     margin: 10px auto ;
     justify-content: space-between;
+    flex-direction: row;
 }
 .left-side{
     flex: 20%;
@@ -140,21 +141,12 @@ table{
     font-size: small;
 }
 
-.avatar{
-    width: 60px;
-    height: 60px;
-    border-radius:50%
-}
 .text-center{
     text-align: center;
 }
 .text-right{
     text-align: right;
 }
-
-/* table>tbody>tr:nth-child(odd){
-    background-color:rgb(233, 133, 128);
-} */
 
 table>tbody>tr:hover{
     cursor: pointer;
@@ -183,11 +175,3 @@ table>thead>tr>th{
     height: 30px;
     border: none;
 }
-/* @keyframes slideLeft{
-    0% {
-        transform: translateX(100%);
-    }
-    100%{
-        transform: translateX(0);
-    }
-} */
