@@ -163,7 +163,7 @@ function login() {
     let user = document.querySelector("#user").value;
     let pw = document.querySelector("#password").value;
     if (user == "Admin" && pw == "123123") {
-        location.href = "http://127.0.0.1:5500/body.html"
+       window.location.replace("body.html")
     } else {
         alert("Wrong user name or password")
     }
