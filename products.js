@@ -165,8 +165,11 @@ function login() {
     if (user == "Admin" && pw == "123123") {
        window.location.replace("body.html")
     } else {
-        alert("Wrong user name or password")
+        document.querySelector(".alert").style.display="inline-block"
     }
+}
+function logout(){
+    window.location.replace("index.html")
 }
 function sort(direction, field){
     if(direction === "asc"){

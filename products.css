@@ -170,6 +170,16 @@ table>thead>tr>th{
     height: 100px;
 }
 .sort-item{
-    color: white;
+    color: black;
     cursor: pointer;
+}
+.logout{
+    color: white;
+    background-color: rgb(73, 47, 16);
+    border: none;
+    display: flex;
+    cursor: pointer;
+}
+.logout:hover{
+    text-decoration:underline;
 }
