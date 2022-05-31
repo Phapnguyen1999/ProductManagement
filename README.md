@@ -10,4 +10,4 @@
 2.https://colorhunt.co/
 ## Kết quả đạt được
 1. Link mã nguồn: https://github.com/Phapnguyen1999/ProductManager
-2. Link sản phẩm: https://phapnguyen1999.github.io/ProductManager/
+2. Link sản phẩm: https://phapnguyen1999.github.io/ProductManagement/
