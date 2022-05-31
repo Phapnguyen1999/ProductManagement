@@ -51,12 +51,12 @@ function renderProduct(data) {
             <tr>
                 <td>SP#${product.id}</td>
                 <td>${product.name}</td>
-                <td> <img src="${product.img}" alt=" " style="width: 70px; height:100px"></td>
+                <td> <img class="avatar" src="${product.img}" alt="" ></td>
                 <td>${product.size}</td>
                 <td>${Helper.formatCurrency(product.price)}</td>
                 <td>
-                    <button class="btn btn-warning" onclick="productEdit(${product.id})">Edit</button>
-                    <button class="btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
+                    <button class="btn btn-warning" onclick="productEdit(${product.id})"><i class="fa-solid fa-sliders"></i></button>
+                    <button class="btn btn-danger" onclick="deleteProduct(${product.id})"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
             </tr>
         `
@@ -151,7 +151,7 @@ function changeImg() {
     }
 
 }
-setInterval(changeImg, 5000);
+setInterval(changeImg, 10000);
 
 function search(searchInput) {
     let result = products.filter(function (product) {
@@ -167,4 +167,29 @@ function login() {
     } else {
         alert("Wrong user name or password")
     }
+}
+function sort(direction, field){
+    if(direction === "asc"){
+        products.sort(function(product_1, product_2){
+            if(product_1[field] > product_2[field]){
+                return 1;
+            }
+            if(product_1[field] < product_2[field]){
+                return -1;
+            }
+            return 0;
+        })
+    }
+    else{
+        products.sort(function(product_1, product_2){
+            if(product_2[field] > product_1[field]){
+                return 1;
+            }
+            if(product_2[field] < product_1[field]){
+                return -1;
+            }
+            return 0;
+        })
+    }
+    renderProduct(products);
 }

@@ -75,36 +75,25 @@
 
 .btn-warning {
     padding: 8px;
-    margin: 3px;
-    color: #212529;
-    background-color: #ffc107;
-    border-color: #ffc107;
+    color: black;
+    background-color: #f6e204;
+    border-color: #f6e204;
+    width: 40px;
 }
 
 .btn-warning:hover {
-    color: #212529;
-    background-color: #e0a800;
-    border-color: #d39e00;
+    color:#fff;
+    background-color: #e3c105;
+    border-color:#e3c105;
 }
+
 .btn-secondary {
-    color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-    color: #fff;
-    background-color: #5a6268;
-    border-color: #545b62;
-}
-
-.btn-success {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745;
 }
 
-.btn-success:hover {
+.btn-secondary:hover {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34;
@@ -112,6 +101,7 @@
 
 .btn-danger {
     padding: 8px;
+    width: 40px;
     color: #fff;
     background-color: #dc3545;
     border-color: #dc3545;
@@ -150,7 +140,7 @@ table{
 
 table>tbody>tr:hover{
     cursor: pointer;
-    background-color: rgb(165, 146, 146);
+    background-color: rgb(244, 177, 148);
 }
 table>tbody>tr>td{
     text-align: center;
@@ -174,4 +164,12 @@ table>thead>tr>th{
 .search{
     height: 30px;
     border: none;
+}
+.avatar{
+    width: 70px;
+    height: 100px;
+}
+.sort-item{
+    color: white;
+    cursor: pointer;
 }
